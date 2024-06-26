@@ -26,6 +26,7 @@ class KoiPush extends Command
     public function handle()
     {
         $this->info('Pushing changes...');
+        $this->warn('Use Personal Access Token as Password to authenticate with Git. To generate a Personal Access Token: https://github.com/settings/tokens');
         exec('git push -u origin main');
     }
 }

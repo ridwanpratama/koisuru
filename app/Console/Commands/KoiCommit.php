@@ -27,6 +27,7 @@ class KoiCommit extends Command
      */
     public function handle()
     {
+        exec('git add .');
         $geminiService = new GeminiService();
         $gitHelper = new GitHelper();
 

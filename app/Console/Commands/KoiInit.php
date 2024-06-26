@@ -30,15 +30,9 @@ class KoiInit extends Command
         $isPrivateRepo = $this->choice('Are you using a private Git repository?', ['Yes', 'No'], 1);
 
         if ($isPrivateRepo === 'Yes') {
-            exec('ssh -T git@github.com', $output, $returnCode);
-            if ($returnCode !== 0) {
-                $this->error('SSH key is not set up. Please set up SSH key for Git authentication.');
-                $this->info('Read more here: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent');
-                return;
-            }
+            exec('git config --global --unset user.email');
         }
 
-        // Set default Git configurations if not already set
         exec('git config --global --get user.email', $output, $returnCode);
         if ($returnCode !== 0) {
             $email = $this->ask('Enter your email for Git:');
@@ -54,7 +48,6 @@ class KoiInit extends Command
         exec('git config --global init.defaultBranch main');
         exec('git init');
         exec('git branch -m main');
-        exec('git add .');
 
         $remoteUrl = $this->ask('What is your git remote url?');
 
